@@ -7,6 +7,7 @@ if (!uri) {
 }
 
 const options = {
+  appName: 'personalised-mflix-ai-sdk',
   serverApi: {
     version: ServerApiVersion.v1,
     strict: false,
