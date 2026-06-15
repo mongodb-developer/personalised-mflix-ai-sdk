@@ -1,0 +1,415 @@
+/* ============================================================================
+   LeafyGreen Design System — Foundations
+   Tokens extracted from mongodb/leafygreen-ui (palette, tokens, typography).
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   Webfonts
+   - 'Euclid Circular A' is MongoDB's proprietary brand sans (no Google Fonts).
+     Closest free substitute: "Geist" (also geometric, similar warmth) or
+     "Plus Jakarta Sans". We register a stack that falls through to substitutes.
+   - 'MongoDB Value Serif' is a custom transitional serif. The user has
+     supplied **Source Serif 4** (Adobe, OFL) as the substitute — a close
+     match in proportion, contrast, and verticality. Loaded locally from
+     /fonts/ via @font-face below.
+   - 'Source Code Pro' is Adobe's free, on Google Fonts.
+   See README.md → VISUAL FOUNDATIONS for the substitution disclosure.
+   ---------------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap');
+
+/* Lexend Deca — variable sans, used as the Euclid Circular A substitute.
+   Same humanist-geometric character, very legible at small sizes. */
+@font-face {
+  font-family: 'Lexend Deca';
+  src: url('fonts/LexendDeca-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Source Serif 4 — local files. Optical size axis (18pt body, 36pt heading,
+   48pt display) selected via the unicode-range-free font-family override. We
+   register the body cut as the default; large-display layouts can specifically
+   opt into the 36/48pt cuts with var(--lg-font-serif-display). */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Italic.ttf') format('truetype');
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-SemiBold.ttf') format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('fonts/SourceSerif4-Bold.ttf') format('truetype');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* Optical-size display cut for hero headings (36pt). */
+@font-face {
+  font-family: 'Source Serif 4 Display';
+  src: url('fonts/SourceSerif4_36pt-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4 Display';
+  src: url('fonts/SourceSerif4_36pt-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4 Display';
+  src: url('fonts/SourceSerif4_36pt-SemiBold.ttf') format('truetype');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+/* 48pt cut for the largest marketing heroes. */
+@font-face {
+  font-family: 'Source Serif 4 Hero';
+  src: url('fonts/SourceSerif4_48pt-Medium.ttf') format('truetype');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Source Serif 4 Hero';
+  src: url('fonts/SourceSerif4_48pt-Regular.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ============================ Palette ================================== */
+  /* Core */
+  --lg-white: #FFFFFF;
+  --lg-black: #001E2B;        /* "Evergreen" – almost-black with a green cast */
+  --lg-transparent: #FFFFFF00;
+
+  /* Gray (cool, slightly green-tinted) */
+  --lg-gray-dark4:  #112733;
+  --lg-gray-dark3:  #1C2D38;
+  --lg-gray-dark2:  #3D4F58;
+  --lg-gray-dark1:  #5C6C75;
+  --lg-gray-base:   #889397;
+  --lg-gray-light1: #C1C7C6;
+  --lg-gray-light2: #E8EDEB;
+  --lg-gray-light3: #F9FBFA;
+
+  /* Green – the LeafyGreen signature. "Spring Green" base. */
+  --lg-green-dark3: #023430;
+  --lg-green-dark2: #00684A;  /* "Evergreen" — primary action, brand */
+  --lg-green-dark1: #00A35C;
+  --lg-green-base:  #00ED64;  /* "Spring Green" — accent, leaf, logo highlight */
+  --lg-green-light1:#71F6BA;
+  --lg-green-light2:#C0FAE6;
+  --lg-green-light3:#E3FCF7;
+
+  /* Blue – information, links, focus rings */
+  --lg-blue-dark3:  #0C2657;
+  --lg-blue-dark2:  #083C90;
+  --lg-blue-dark1:  #1254B7;
+  --lg-blue-base:   #016BF8;
+  --lg-blue-light1: #0498EC;
+  --lg-blue-light2: #C3E7FE;
+  --lg-blue-light3: #E1F7FF;
+
+  /* Purple – sparingly. Charts / specialty surfaces. */
+  --lg-purple-dark3:#2D0B59;
+  --lg-purple-dark2:#5E0C9E;
+  --lg-purple-base: #B45AF2;
+  --lg-purple-light2:#F1D4FD;
+  --lg-purple-light3:#F9EBFF;
+
+  /* Yellow – warnings */
+  --lg-yellow-dark3:#4C2100;
+  --lg-yellow-dark2:#944F01;
+  --lg-yellow-base: #FFC010;
+  --lg-yellow-light2:#FFEC9E;
+  --lg-yellow-light3:#FEF7DB;
+
+  /* Red – destructive, error */
+  --lg-red-dark3:   #5B0000;
+  --lg-red-dark2:   #970606;
+  --lg-red-base:    #DB3030;
+  --lg-red-light1:  #FF6960;
+  --lg-red-light2:  #FFCDC7;
+  --lg-red-light3:  #FFEAE5;
+
+  /* ============================ Semantic (Light) ========================= */
+  /* Background */
+  --lg-bg-primary:           var(--lg-white);
+  --lg-bg-primary-hover:     var(--lg-gray-light2);
+  --lg-bg-secondary:         var(--lg-gray-light3);
+  --lg-bg-secondary-hover:   var(--lg-gray-light2);
+  --lg-bg-inverse-primary:   var(--lg-black);
+  --lg-bg-info:              var(--lg-blue-light3);
+  --lg-bg-warning:           var(--lg-yellow-light3);
+  --lg-bg-success:           var(--lg-green-light3);
+  --lg-bg-error:             var(--lg-red-light3);
+  --lg-bg-disabled:          var(--lg-gray-light2);
+
+  /* Border */
+  --lg-border-primary:       var(--lg-gray-base);
+  --lg-border-secondary:     var(--lg-gray-light2);
+  --lg-border-tertiary:      var(--lg-gray-light1);
+  --lg-border-success:       var(--lg-green-dark1);
+  --lg-border-error:         var(--lg-red-base);
+  --lg-border-info:          var(--lg-blue-base);
+  --lg-border-warning:       var(--lg-yellow-base);
+  --lg-border-disabled:      var(--lg-gray-light1);
+  --lg-border-focus:         var(--lg-blue-light1);
+
+  /* Text */
+  --lg-text-primary:         var(--lg-black);
+  --lg-text-primary-hover:   var(--lg-black);
+  --lg-text-primary-focus:   var(--lg-blue-dark1);
+  --lg-text-secondary:       var(--lg-gray-dark1);
+  --lg-text-inverse-primary: var(--lg-white);
+  --lg-text-inverse-secondary: var(--lg-gray-light1);
+  --lg-text-disabled:        var(--lg-gray-base);
+  --lg-text-placeholder:     var(--lg-gray-dark1);
+  --lg-text-link:            var(--lg-blue-base);
+  --lg-text-info:            var(--lg-blue-dark1);
+  --lg-text-success:         var(--lg-green-dark2);
+  --lg-text-warning:         var(--lg-yellow-dark2);
+  --lg-text-error:           var(--lg-red-base);
+
+  /* Icon */
+  --lg-icon-primary:         var(--lg-gray-dark1);
+  --lg-icon-secondary:       var(--lg-gray-base);
+  --lg-icon-inverse:         var(--lg-white);
+  --lg-icon-info:            var(--lg-blue-base);
+  --lg-icon-success:         var(--lg-green-dark1);
+  --lg-icon-warning:         var(--lg-yellow-dark2);
+  --lg-icon-error:           var(--lg-red-base);
+  --lg-icon-disabled:        var(--lg-gray-light1);
+
+  /* ============================ Typography =============================== */
+  /* Font families */
+  --lg-font-default: 'Euclid Circular A', 'Lexend Deca', 'Geist',
+                     'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --lg-font-serif:   'MongoDB Value Serif', 'Source Serif 4',
+                     'Times New Roman', serif;
+  --lg-font-serif-display: 'MongoDB Value Serif', 'Source Serif 4 Display',
+                     'Source Serif 4', 'Times New Roman', serif;
+  --lg-font-serif-hero: 'MongoDB Value Serif', 'Source Serif 4 Hero',
+                     'Source Serif 4 Display', 'Source Serif 4',
+                     'Times New Roman', serif;
+  --lg-font-code:    'Source Code Pro', Menlo, Consolas, monospace;
+
+  /* Font weights */
+  --lg-fw-regular:  400;
+  --lg-fw-medium:   500;
+  --lg-fw-semibold: 600;
+
+  /* Type scale (px) — matches typeScales.ts + H1/H2/H3 styles */
+  --lg-fs-disclaimer:  12px; --lg-lh-disclaimer: 20px;
+  --lg-fs-body1:       13px; --lg-lh-body1:      20px;
+  --lg-fs-body2:       16px; --lg-lh-body2:      28px;
+  --lg-fs-large:       18px; --lg-lh-large:      24px;
+  --lg-fs-code1:       13px; --lg-lh-code1:      20px;
+  --lg-fs-code2:       15px; --lg-lh-code2:      24px;
+  --lg-fs-subtitle:    18px; --lg-lh-subtitle:   24px;
+  --lg-fs-h3:          24px; --lg-lh-h3:         32px;
+  --lg-fs-h2:          32px; --lg-lh-h2:         40px;
+  --lg-fs-h1:          48px; --lg-lh-h1:         62px;
+  --lg-fs-overline:    11px; --lg-lh-overline:   20px;
+
+  /* ============================ Spacing ================================== */
+  /* Unitless step keys; numeric value is px. */
+  --lg-space-0:    0px;
+  --lg-space-25:   1px;
+  --lg-space-50:   2px;
+  --lg-space-100:  4px;
+  --lg-space-150:  6px;
+  --lg-space-200:  8px;
+  --lg-space-300:  12px;
+  --lg-space-400:  16px;
+  --lg-space-500:  20px;
+  --lg-space-600:  24px;
+  --lg-space-800:  32px;
+  --lg-space-900:  36px;
+  --lg-space-1000: 40px;
+  --lg-space-1200: 48px;
+  --lg-space-1400: 56px;
+  --lg-space-1600: 64px;
+  --lg-space-1800: 72px;
+
+  /* ============================ Radii ==================================== */
+  --lg-radius-0:    0px;
+  --lg-radius-50:   2px;
+  --lg-radius-100:  4px;
+  --lg-radius-150:  6px;   /* default button radius */
+  --lg-radius-200:  8px;
+  --lg-radius-300:  12px;
+  --lg-radius-400:  16px;
+  --lg-radius-500:  20px;
+  --lg-radius-600:  24px;
+  --lg-radius-pill: 999px;
+
+  /* ============================ Shadows ================================== */
+  /* From shadows.ts — light mode */
+  --lg-shadow-1: 0px 2px 4px 1px color-mix(in srgb, var(--lg-black) 15%, transparent);
+  --lg-shadow-2: 0px 18px 18px -15px color-mix(in srgb, var(--lg-black) 20%, transparent);
+  --lg-shadow-3: 0px 8px 20px -8px color-mix(in srgb, var(--lg-black) 60%, transparent);
+  --lg-shadow-overflow: 0px 2px 4px 1px color-mix(in srgb, var(--lg-gray-dark1) 30%, transparent);
+
+  /* Rings — apply as box-shadow on focus / hover */
+  --lg-focus-ring:       0 0 0 2px var(--lg-white), 0 0 0 4px var(--lg-blue-base);
+  --lg-focus-ring-input: 0 0 0 3px var(--lg-blue-base);
+  --lg-hover-ring-gray:  0 0 0 3px var(--lg-gray-light2);
+  --lg-hover-ring-green: 0 0 0 3px var(--lg-green-light2);
+  --lg-hover-ring-red:   0 0 0 3px var(--lg-red-light2);
+
+  /* ============================ Motion =================================== */
+  --lg-dur-faster:  100ms;
+  --lg-dur-default: 150ms;
+  --lg-dur-slower:  300ms;
+  --lg-dur-slowest: 500ms;
+  --lg-ease:        ease-in-out;
+
+  /* ============================ Breakpoints (for ref) ==================== */
+  --lg-bp-mobile:    320px;
+  --lg-bp-tablet:    768px;
+  --lg-bp-desktop:   1024px;
+  --lg-bp-xldesktop: 1440px;
+}
+
+/* Dark-mode override: apply via [data-theme="dark"] on a wrapping element. */
+[data-theme="dark"] {
+  --lg-bg-primary:           var(--lg-black);
+  --lg-bg-primary-hover:     var(--lg-gray-dark2);
+  --lg-bg-secondary:         var(--lg-gray-dark3);
+  --lg-bg-secondary-hover:   var(--lg-gray-dark2);
+  --lg-bg-inverse-primary:   var(--lg-white);
+  --lg-bg-info:              var(--lg-blue-dark3);
+  --lg-bg-warning:           var(--lg-yellow-dark3);
+  --lg-bg-success:           var(--lg-green-dark3);
+  --lg-bg-error:             var(--lg-red-dark3);
+  --lg-bg-disabled:          var(--lg-gray-dark3);
+
+  --lg-border-primary:       var(--lg-gray-base);
+  --lg-border-secondary:     var(--lg-gray-dark2);
+  --lg-border-tertiary:      var(--lg-gray-dark1);
+  --lg-border-focus:         var(--lg-blue-light1);
+
+  --lg-text-primary:         var(--lg-white);
+  --lg-text-secondary:       var(--lg-gray-light1);
+  --lg-text-inverse-primary: var(--lg-black);
+  --lg-text-disabled:        var(--lg-gray-dark1);
+  --lg-text-link:            var(--lg-blue-light1);
+
+  --lg-icon-primary:         var(--lg-gray-light1);
+  --lg-icon-secondary:       var(--lg-gray-base);
+  --lg-icon-inverse:         var(--lg-black);
+
+  --lg-shadow-1: unset;
+  --lg-shadow-2: 0 18px 18px -15px color-mix(in srgb, #000 45%, transparent);
+  --lg-shadow-3: 0 8px 20px -8px color-mix(in srgb, #000 60%, transparent);
+
+  --lg-focus-ring:       0 0 0 2px var(--lg-black), 0 0 0 4px var(--lg-blue-light1);
+  --lg-focus-ring-input: 0 0 0 3px var(--lg-blue-light1);
+  --lg-hover-ring-gray:  0 0 0 3px var(--lg-gray-dark2);
+  --lg-hover-ring-green: 0 0 0 3px var(--lg-green-dark3);
+  --lg-hover-ring-red:   0 0 0 3px var(--lg-yellow-dark3); /* yes, yellow */
+}
+
+/* ============================================================================
+   Semantic typographic elements — copy these styles into rendered text.
+   Names mirror @leafygreen-ui/typography components.
+   ============================================================================ */
+
+.lg-h1, h1.lg {
+  font-family: var(--lg-font-serif-hero);
+  font-size: var(--lg-fs-h1);
+  line-height: var(--lg-lh-h1);
+  font-weight: var(--lg-fw-medium);
+  color: var(--lg-text-primary);
+  letter-spacing: -0.3px;
+  margin: 0;
+}
+.lg-h2, h2.lg {
+  font-family: var(--lg-font-serif-display);
+  font-size: var(--lg-fs-h2);
+  line-height: var(--lg-lh-h2);
+  font-weight: var(--lg-fw-medium);
+  color: var(--lg-text-primary);
+  margin: 0;
+}
+.lg-h3, h3.lg {
+  font-family: var(--lg-font-default);
+  font-size: var(--lg-fs-h3);
+  line-height: var(--lg-lh-h3);
+  font-weight: var(--lg-fw-semibold);
+  color: var(--lg-text-primary);
+  margin: 0;
+}
+.lg-subtitle {
+  font-family: var(--lg-font-default);
+  font-size: var(--lg-fs-subtitle);
+  line-height: var(--lg-lh-subtitle);
+  font-weight: var(--lg-fw-semibold);
+  color: var(--lg-text-primary);
+  margin: 0;
+}
+.lg-body, p.lg {
+  font-family: var(--lg-font-default);
+  font-size: var(--lg-fs-body1);
+  line-height: var(--lg-lh-body1);
+  font-weight: var(--lg-fw-regular);
+  color: var(--lg-text-primary);
+  margin: 0;
+}
+.lg-body--large {
+  font-size: var(--lg-fs-body2);
+  line-height: var(--lg-lh-body2);
+}
+.lg-disclaimer {
+  font-family: var(--lg-font-default);
+  font-size: var(--lg-fs-disclaimer);
+  line-height: var(--lg-lh-disclaimer);
+  color: var(--lg-text-secondary);
+}
+.lg-overline {
+  font-family: var(--lg-font-default);
+  font-size: var(--lg-fs-overline);
+  line-height: var(--lg-lh-overline);
+  font-weight: var(--lg-fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--lg-text-primary);
+}
+.lg-link, a.lg {
+  color: var(--lg-text-link);
+  text-decoration: none;
+  font-weight: var(--lg-fw-medium);
+}
+.lg-link:hover, a.lg:hover { text-decoration: underline; }
+.lg-code, code.lg {
+  font-family: var(--lg-font-code);
+  font-size: var(--lg-fs-code1);
+  line-height: var(--lg-lh-code1);
+  background: var(--lg-gray-light3);
+  border: 1px solid var(--lg-gray-light1);
+  border-radius: var(--lg-radius-100);
+  padding: 1px 4px;
+  color: var(--lg-text-primary);
+}
+.lg-keycode {
+  font-family: var(--lg-font-code);
+  font-size: var(--lg-fs-code1);
+  background: var(--lg-gray-light3);
+  border: 1px solid var(--lg-gray-light1);
+  border-bottom-width: 2px;
+  border-radius: var(--lg-radius-100);
+  padding: 1px 6px;
+}

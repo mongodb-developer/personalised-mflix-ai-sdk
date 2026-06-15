@@ -1,0 +1,5 @@
+# Authoring / internal artifacts not needed for deployment
+blog/
+scripts/
+tsconfig.tsbuildinfo
+README.md
